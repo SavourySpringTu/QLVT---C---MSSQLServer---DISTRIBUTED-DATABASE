@@ -59,14 +59,10 @@ namespace QLVT
                 Program.conn.Close();
             try
             {
-                Program.connstr = "Data Source=" + Program.serverName + ";Initial Catalog=" +
-                       Program.database + ";User ID=" +
-                       Program.loginName + ";password=" + Program.loginPassword;
-                Console.WriteLine(Program.serverName);
-                Console.WriteLine(Program.userName);
-                Console.WriteLine(Program.loginPassword);
-                Program.conn.ConnectionString = Program.connstr;
+                Program.connstr = "Data Source=" + Program.serverName + ";Initial Catalog="+Program.database + ";User ID="+Program.loginName + ";Password=" + Program.loginPassword;
+                Console.WriteLine("Data Source=" + Program.serverName + ";Initial Catalog=" + Program.database + ";User ID=" + Program.loginName + ";Password=" + Program.loginPassword);
 
+                Program.conn.ConnectionString = Program.connstr;
                 Program.conn.Open();
                 return 1;
             }

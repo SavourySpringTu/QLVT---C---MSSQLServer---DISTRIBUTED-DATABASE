@@ -40,17 +40,15 @@ namespace QLVT
         private void FormNhanVien_Load(object sender, EventArgs e)
         {
             QLVT_DATHANGDataSet.EnforceConstraints = false;
+
+            this.datHangTableAdapter.Connection.ConnectionString = Program.connstr;
+            this.datHangTableAdapter.Fill(this.QLVT_DATHANGDataSet.DatHang);
+            this.phieuNhapTableAdapter.Connection.ConnectionString = Program.connstr;
+            this.phieuNhapTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuNhap);
+            this.phieuXuatTableAdapter.Connection.ConnectionString = Program.connstr;
+            this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);
             this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
             this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
-
-            /*this.datHangTableAdapter.Connection.ConnectionString = Program.connstr;
-            this.datHangTableAdapter.Fill(this.dataSet.DatHang);
-
-            this.phieuNhapTableAdapter.Connection.ConnectionString = Program.connstr;
-            this.phieuNhapTableAdapter.Fill(this.dataSet.PhieuNhap);
-
-            this.phieuXuatTableAdapter.Connection.ConnectionString = Program.connstr;
-            this.phieuXuatTableAdapter.Fill(this.dataSet.PhieuXuat);*/
 
             maChiNhanh = ((DataRowView)bdsNhanVien[0])["MACN"].ToString();
             cmbChiNhanh.DataSource = Program.bindingSource;/*sao chep bingding source tu form dang nhap*/
@@ -97,20 +95,16 @@ namespace QLVT
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*
-            /*Neu combobox khong co so lieu thi ket thuc luon*/
             if (cmbChiNhanh.SelectedValue.ToString() == "System.Data.DataRowView")
                 return;
 
             Program.serverName = cmbChiNhanh.SelectedValue.ToString();
 
-            /*Neu chon sang chi nhanh khac voi chi nhanh hien tai*/
             if (cmbChiNhanh.SelectedIndex != Program.brand)
             {
                 Program.loginName = Program.remoteLogin;
                 Program.loginPassword = Program.remotePassword;
             }
-            /*Neu chon trung voi chi nhanh dang dang nhap o formDangNhap*/
             else
             {
                 Program.loginName = Program.currentLogin;
@@ -123,27 +117,20 @@ namespace QLVT
             }
             else
             {
-                /*Do du lieu tu dataSet vao grid Control*/
                 this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
 
-                /*this.datHangTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.datHangTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.datHangTableAdapter.Fill(this.QLVT_DATHANGDataSet.DatHang);
 
                 this.phieuXuatTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.phieuNhapTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuNhap);
 
                 this.phieuXuatTableAdapter.Connection.ConnectionString = Program.connstr;
-                this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);*/
+                this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);
 
-                /*Tu dong lay maChiNhanh hien tai - phuc vu cho phan btnTHEM
-                /*Cho dong nay chay thi bi loi*/
-                //maChiNhanh = ((DataRowView)bdsNhanVien[0])["MACN"].ToString().Trim();
+                maChiNhanh = ((DataRowView)bdsNhanVien[0])["MACN"].ToString().Trim();
             }
-        }
-        private void bdsNhanVien_CurrentChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnThem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -167,8 +154,8 @@ namespace QLVT
             this.btnXoa.Enabled = false;
             this.btnGhi.Enabled = true;
 
-            this.btnRefresh.Enabled = true;
-            this.btnPhucHoi.Enabled = false;
+            this.btnRefresh.Enabled = false;
+            this.btnPhucHoi.Enabled = true;
             this.btnChuyenCN.Enabled = false;
             this.btnThoat.Enabled = false;
             this.cbXoa.Checked = false;
@@ -197,11 +184,9 @@ namespace QLVT
                 this.gcNhanVien.Enabled = true;
                 this.panelNhapLieu.Enabled = true;
 
-                bdsNhanVien.CancelEdit();
-                /*xoa dong hien tai*/
                 bdsNhanVien.RemoveCurrent();
-                /* trở về lúc đầu con trỏ đang đứng*/
                 bdsNhanVien.Position = Vitri;
+                bdsNhanVien.CancelEdit();
                 return;
             }
 
@@ -300,10 +285,6 @@ namespace QLVT
             String maChiNhanh = drv["MACN"].ToString();
             int trangThai = (cbXoa.Checked == true) ? 1 : 0;
 
-
-            /*declare @returnedResult int
-              exec @returnedResult = sp_TraCuu_KiemTraMaNhanVien '20'
-              select @returnedResult*/
             String cauTruyVan =
                     "DECLARE	@result int " +
                     "EXEC @result = [dbo].[sp_TraCuu_KiemTraMaNhanVien] '" +
@@ -526,6 +507,7 @@ namespace QLVT
             {
                 // do du lieu moi tu dataSet vao gridControl NHANVIEN
                 this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
+                this.btnThem.Enabled = true;
                 this.gcNhanVien.Enabled = true;
             }
             catch (Exception ex)
@@ -547,7 +529,7 @@ namespace QLVT
                 return;
             }
 
-           /* if (bdsNhanVien.Count == 0)
+            if (bdsNhanVien.Count == 0)
             {
                 btnXoa.Enabled = false;
             }
@@ -568,7 +550,7 @@ namespace QLVT
             {
                 MessageBox.Show("Không thể xóa nhân viên này vì đã lập phiếu xuất", "Thông báo", MessageBoxButtons.OK);
                 return;
-            }*/
+            }
 
             /* Phần này phục vụ tính năng hoàn tác
                     * Đưa câu truy vấn hoàn tác vào undoList 

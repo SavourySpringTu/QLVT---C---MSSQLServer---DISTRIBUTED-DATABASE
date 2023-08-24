@@ -69,7 +69,6 @@ namespace QLVT
             try
             {
                 Program.serverName = comboBox1.SelectedValue.ToString();
-                //Console.WriteLine(cmbCHINHANH.SelectedValue.ToString());
             }
             catch (Exception)
             {

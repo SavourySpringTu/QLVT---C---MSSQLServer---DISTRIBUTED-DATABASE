@@ -24,12 +24,6 @@ namespace QLVT
                     return f;
             return null;
         }
-        private void ribbon_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void btnNV_ItemClick(object sender, ItemClickEventArgs e)
         {
             Form f = this.CheckExists(typeof(FormNhanVien));
@@ -79,6 +73,65 @@ namespace QLVT
                 this.Dispose();
                 form.Show();
             }
+        }
+
+        private void FormChinh_Load(object sender, EventArgs e)
+        {
+            if(Program.role == "USER"){
+                this.btnTaoTaiKhoan.Enabled = false;
+                this.btnBCNhanVien.Enabled = false;
+                this.btnBCVatTu.Enabled = false;
+            }
+        }
+
+        private void btnPhieuXuat_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form f = this.CheckExists(typeof(FormPhieuXuat));
+            if (f != null)
+            {
+                f.Activate();
+            }
+            else
+            {
+                FormPhieuXuat form = new FormPhieuXuat();
+                this.Dispose();
+                form.Show();
+            }
+        }
+
+        private void btnTaoTaiKhoan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormTaoTaiKhoan form = new FormTaoTaiKhoan();
+            form.Show();
+            Dispose();
+        }
+
+        private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormDonDatHang form = new FormDonDatHang();
+            form.Show();
+            Dispose();
+        }
+
+        private void btnPhieuNhap_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormPhieuNhap form = new FormPhieuNhap();
+            form.Show();
+            Dispose();
+        }
+
+        private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormKhoHang form = new FormKhoHang();
+            form.Show();
+            Dispose();
+        }
+
+        private void btnBCNhanVien_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormBaoCaoNhanVien form = new FormBaoCaoNhanVien();
+            form.Show();
+            Dispose();
         }
     }
 }

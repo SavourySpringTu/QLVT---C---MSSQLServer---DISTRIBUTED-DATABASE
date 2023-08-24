@@ -40,7 +40,6 @@ namespace QLVT
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.btnThem = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSua = new DevExpress.XtraBars.BarButtonItem();
             this.btnGhi = new DevExpress.XtraBars.BarButtonItem();
             this.btnXoa = new DevExpress.XtraBars.BarButtonItem();
             this.btnPhucHoi = new DevExpress.XtraBars.BarButtonItem();
@@ -65,7 +64,12 @@ namespace QLVT
             this.txtSoLuongTon = new DevExpress.XtraEditors.SpinEdit();
             this.txtTenVT = new DevExpress.XtraEditors.TextEdit();
             this.txtMaVT = new DevExpress.XtraEditors.TextEdit();
-            this.btnChuyenCN = new System.Windows.Forms.Button();
+            this.bdsCTPX = new System.Windows.Forms.BindingSource(this.components);
+            this.ctpxTableAdapter = new QLVT.QLVT_DATHANGDataSetTableAdapters.CTPXTableAdapter();
+            this.bdsCTPN = new System.Windows.Forms.BindingSource(this.components);
+            this.ctpnTableAdapter = new QLVT.QLVT_DATHANGDataSetTableAdapters.CTPNTableAdapter();
+            this.bdsCTDDH = new System.Windows.Forms.BindingSource(this.components);
+            this.ctddhTableAdapter = new QLVT.QLVT_DATHANGDataSetTableAdapters.CTDDHTableAdapter();
             mAVTLabel = new System.Windows.Forms.Label();
             tENVTLabel = new System.Windows.Forms.Label();
             sOLUONGTONLabel = new System.Windows.Forms.Label();
@@ -83,6 +87,10 @@ namespace QLVT
             ((System.ComponentModel.ISupportInitialize)(this.txtSoLuongTon.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenVT.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaVT.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCTPX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCTPN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCTDDH)).BeginInit();
             this.SuspendLayout();
             // 
             // mAVTLabel
@@ -139,14 +147,13 @@ namespace QLVT
             this.barManager2.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.barButtonItem1,
             this.btnThem,
-            this.btnSua,
             this.btnGhi,
             this.btnXoa,
             this.btnPhucHoi,
             this.btnRefresh,
             this.btnThoat});
             this.barManager2.MainMenu = this.bar2;
-            this.barManager2.MaxItemId = 8;
+            this.barManager2.MaxItemId = 9;
             this.barManager2.StatusBar = this.bar3;
             // 
             // bar1
@@ -166,7 +173,6 @@ namespace QLVT
             this.bar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem1),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnThem, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnSua, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnGhi, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnXoa, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnPhucHoi, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
@@ -191,15 +197,6 @@ namespace QLVT
             this.btnThem.Size = new System.Drawing.Size(100, 60);
             this.btnThem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnThem_ItemClick);
             // 
-            // btnSua
-            // 
-            this.btnSua.Caption = "Sửa";
-            this.btnSua.Id = 2;
-            this.btnSua.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSua.ImageOptions.Image")));
-            this.btnSua.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnSua.ImageOptions.LargeImage")));
-            this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(100, 60);
-            // 
             // btnGhi
             // 
             this.btnGhi.Caption = "Ghi";
@@ -218,6 +215,7 @@ namespace QLVT
             this.btnXoa.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnXoa.ImageOptions.LargeImage")));
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(100, 60);
+            this.btnXoa.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnXoa_ItemClick);
             // 
             // btnPhucHoi
             // 
@@ -237,6 +235,7 @@ namespace QLVT
             this.btnRefresh.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnRefresh.ImageOptions.LargeImage")));
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(100, 60);
+            this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
             // 
             // btnThoat
             // 
@@ -294,7 +293,6 @@ namespace QLVT
             // 
             // panelControl1
             // 
-            this.panelControl1.Controls.Add(this.btnChuyenCN);
             this.panelControl1.Controls.Add(this.cmbChiNhanh);
             this.panelControl1.Controls.Add(this.label1);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -436,15 +434,6 @@ namespace QLVT
             this.txtMaVT.Size = new System.Drawing.Size(141, 24);
             this.txtMaVT.TabIndex = 1;
             // 
-            // btnChuyenCN
-            // 
-            this.btnChuyenCN.Location = new System.Drawing.Point(417, 38);
-            this.btnChuyenCN.Name = "btnChuyenCN";
-            this.btnChuyenCN.Size = new System.Drawing.Size(75, 23);
-            this.btnChuyenCN.TabIndex = 12;
-            this.btnChuyenCN.Text = "Chuyển CN";
-            this.btnChuyenCN.UseVisualStyleBackColor = true;
-            // 
             // FormVatTu
             // 
             this.ClientSize = new System.Drawing.Size(969, 640);
@@ -490,7 +479,6 @@ namespace QLVT
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private DevExpress.XtraBars.BarButtonItem btnThem;
-        private DevExpress.XtraBars.BarButtonItem btnSua;
         private DevExpress.XtraBars.BarButtonItem btnGhi;
         private DevExpress.XtraBars.BarButtonItem btnXoa;
         private DevExpress.XtraBars.BarButtonItem btnPhucHoi;
@@ -510,6 +498,11 @@ namespace QLVT
         private DevExpress.XtraEditors.SpinEdit txtSoLuongTon;
         private DevExpress.XtraEditors.TextEdit txtTenVT;
         private DevExpress.XtraEditors.TextEdit txtMaVT;
-        private System.Windows.Forms.Button btnChuyenCN;
+        private System.Windows.Forms.BindingSource bdsCTPX;
+        private QLVT_DATHANGDataSetTableAdapters.CTPXTableAdapter ctpxTableAdapter;
+        private System.Windows.Forms.BindingSource bdsCTPN;
+        private QLVT_DATHANGDataSetTableAdapters.CTPNTableAdapter ctpnTableAdapter;
+        private System.Windows.Forms.BindingSource bdsCTDDH;
+        private QLVT_DATHANGDataSetTableAdapters.CTDDHTableAdapter ctddhTableAdapter;
     }
 }
