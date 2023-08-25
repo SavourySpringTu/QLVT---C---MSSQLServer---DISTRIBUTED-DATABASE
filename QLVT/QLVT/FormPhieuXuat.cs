@@ -16,6 +16,7 @@ namespace QLVT
     public partial class FormPhieuXuat : Form
     {
         int viTri = 0;
+        String slmoithem = "";
         bool dangThemMoi = false;
         public string makho = "";
         string maChiNhanh = "";
@@ -219,8 +220,7 @@ namespace QLVT
             if (cd == false)
             {
                ((DataRowView)(bdsChiTietPhieuXuat.Current))["MAPX"] = ((DataRowView)(bdsPhieuXuat.Current))["MAPX"];
-                ((DataRowView)(bdsChiTietPhieuXuat.Current))["MAVT"] =
-                    Program.maVatTuDuocChon;
+                ((DataRowView)(bdsChiTietPhieuXuat.Current))["MAVT"] = Program.maVatTuDuocChon;
                 this.txtMaVatTuChiTietPhieuXuat.Enabled = false;
                 this.btnChonVatTu.Enabled = true;
 
@@ -230,6 +230,7 @@ namespace QLVT
                 this.txtDonGiaChiTietPhieuXuat.Enabled = true;
                 this.txtDonGiaChiTietPhieuXuat.EditValue = 1;
             }
+            this.panelNhapLieu.Enabled = true;
             this.btnThem.Enabled = false;
             this.btnXoa.Enabled = false;
             this.btnGhi.Enabled = true;
@@ -245,6 +246,7 @@ namespace QLVT
 
         private void btnGhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            viTri = bds.Position;
             if (TimSoLuongTonVatTu() == false)
             {
                 MessageBox.Show("Không có vật tư", "Thông báo", MessageBoxButtons.OK);
@@ -252,7 +254,8 @@ namespace QLVT
             bool ketQua = kiemTraDuLieuDauVao(cd);
             if (ketQua == false) return;
 
-            string cauTruyVanHoanTac = taoCauTruyVanHoanTac(cd);
+            viTri = bdsPhieuXuat.Position;
+            string cauTruyVanHoanTac = taoCauTruyVanHoanTac();
             String maPhieuXuat = txtMaPhieuXuat.Text.Trim();
             String cauTruyVan =
                     "DECLARE	@result int " +
@@ -306,25 +309,18 @@ namespace QLVT
                             this.btnXoa.Enabled = true;
                         }
 
-                        if (cd == false)
+                        if (cd == false && dangThemMoi == true)
                         {
-                            /*etPhieuXuat.Position;
-                            int viTriMaVT = bdsChiTietPhieuXuat.Find("MAVT", maVT);
-                            if(viTriMaVT!= viTriConTro1)
-                            {
-                                MessageBox.Show("Mã vật tư đã được sử dụng !", "Thông báo", MessageBoxButtons.OK);
-                                txtMaVatTuChiTietPhieuXuat.Focus();
-                                return;
-                            }*/
-                            cauTruyVanHoanTac =
-                                "DELETE FROM DBO.CTPN " +
-                                "WHERE MAPN = '" + maPhieuXuat + "' " +
-                                "AND MAVT = '" + Program.maVatTuDuocChon + "'";
-
                             string maVatTu = txtMaVatTuChiTietPhieuXuat.Text.Trim();
                             string soLuong = txtSoLuongChiTietPhieuXuat.Text.Trim();
+                            slmoithem = soLuong;
+                            cauTruyVanHoanTac =
+                                "DELETE FROM DBO.CTPX " +
+                                "WHERE MAPX = '" + maPhieuXuat + "' " +
+                                "AND MAVT = '" + txtMaVatTuChiTietPhieuXuat.Text.Trim() + "' "+
+                                "EXEC sp_CapNhatSoLuongVatTu 'IMPORT','" + maVatTu + "', " + slmoithem;
 
-                            capNhatSoLuongVatTu(maVatTu, soLuong);
+                            capNhatSoLuongVatTu("EXPORT",maVatTu, soLuong);
                             this.gcChiTietPhieuXuat.Enabled = true;
                             this.btnCDPhieuXuat.Enabled = true;
                         }
@@ -362,7 +358,8 @@ namespace QLVT
         }
         private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (dangThemMoi == true && this.btnThem.Enabled == false)
+            bds.Position = viTri;
+            if (dangThemMoi == true)
             {
                 dangThemMoi = false;
                 if (cd==true)
@@ -370,6 +367,7 @@ namespace QLVT
                     this.btnCDCTPhieuXuat.Enabled = true;
                     this.btnCDPhieuXuat.Enabled = false;
                     this.gcPhieuXuat.Enabled = true;
+                    this.btnXoa.Enabled = true;
                 }
                 if (cd==false)
                 {
@@ -379,7 +377,6 @@ namespace QLVT
                     this.gcChiTietPhieuXuat.Enabled = true;
                 }
                 this.btnThem.Enabled = true;
-                this.btnXoa.Enabled = true;
                 this.btnRefresh.Enabled = true;
                 this.btnThoat.Enabled = true;
                 bds.RemoveCurrent();
@@ -394,11 +391,17 @@ namespace QLVT
                 return;
             }
             String cauTruyVanHoanTac = undoList.Pop().ToString();
-
             Console.WriteLine(cauTruyVanHoanTac);
             int n = Program.ExecSqlNonQuery(cauTruyVanHoanTac);
-
-            this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);
+            if (cd == true)
+            {
+                this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);
+            }
+            else
+            {
+                this.btnThem.Enabled = true;
+                this.chiTietPhieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.CTPX);
+            }
         }
         private bool TimSoLuongTonVatTu()
         {
@@ -428,21 +431,19 @@ namespace QLVT
             Program.soLuongVatTu = result;
             return true; 
         }
-        private void capNhatSoLuongVatTu(string maVatTu, string soLuong)
+        private void capNhatSoLuongVatTu(String type,string maVatTu, string soLuong)
         {
-            string cauTruyVan = "EXEC sp_CapNhatSoLuongVatTu 'EXPORT','" + maVatTu + "', " + soLuong;
+            string cauTruyVan = "EXEC sp_CapNhatSoLuongVatTu '"+ type+"','" + maVatTu + "', " + soLuong;
             int n = Program.ExecSqlNonQuery(cauTruyVan);
         }
-        private string taoCauTruyVanHoanTac(bool cheDo)
+        private string taoCauTruyVanHoanTac()
         {
             String cauTruyVan = "";
             DataRowView drv;
-            if (cheDo == false && dangThemMoi == false)
+            if (cd == true && dangThemMoi == false)
             {
                 drv = ((DataRowView)(bdsPhieuXuat.Current));
                 DateTime ngay = (DateTime)drv["NGAY"];
-
-
                 cauTruyVan = "UPDATE DBO.PHIEUXUAT " +
                     "SET " +
                     "NGAY = CAST('" + ngay.ToString("yyyy-MM-dd") + "' AS DATETIME), " +
@@ -452,7 +453,7 @@ namespace QLVT
                     "WHERE MAPX = '" + drv["MAPX"].ToString().Trim() + "' ";
             }
 
-            if (cheDo == true && dangThemMoi == false)
+            if (cd == false && dangThemMoi == false)
             {
                 drv = ((DataRowView)(bdsChiTietPhieuXuat.Current));
                 int soLuong = int.Parse(drv["SOLUONG"].ToString().Trim());
@@ -463,7 +464,7 @@ namespace QLVT
                 cauTruyVan = "UPDATE DBO.CTPX " +
                     "SET " +
                     "SOLUONG = " + soLuong + " " +
-                    "DOGIA = " + donGia + " " +
+                    ",DONGIA = " + donGia + " " +
                     "WHERE MAPX = '" + maPhieuXuat + "' " +
                     "AND MAVT = '" + maVatTu + "' ";
             }
@@ -633,8 +634,14 @@ namespace QLVT
         {
             try
             {
-                this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);
-                this.chiTietPhieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.CTPX);
+                if (cd == true)
+                {
+                    this.phieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.PhieuXuat);
+                }
+                else
+                {
+                    this.chiTietPhieuXuatTableAdapter.Fill(this.QLVT_DATHANGDataSet.CTPX);
+                }
             }
             catch (Exception ex)
             {

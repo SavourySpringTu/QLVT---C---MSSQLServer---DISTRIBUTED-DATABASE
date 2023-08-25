@@ -21,19 +21,6 @@ namespace QLVT
         {
             InitializeComponent();
         }
-
-        private void FormTaoTaiKhoan_Load(object sender, EventArgs e)
-        {
-            if (Program.role == "CONGTY")
-            {
-                vaiTro = "CONGTY";
-                rdChiNhanh.Enabled = false;
-                rdUser.Enabled = false;
-            }
-            rdChiNhanh.Enabled = true;
-            rdUser.Enabled = true;
-        }
-
         private void btnDangKi_Click(object sender, EventArgs e)
         {
             bool ketQua = kiemTraDuLieuDauVao();
@@ -117,6 +104,24 @@ namespace QLVT
             FormChinh form = new FormChinh();
             form.Show();
             Dispose();
+        }
+
+        private void FormTaoTaiKhoan_Load_1(object sender, EventArgs e)
+        {
+            if (Program.role == "CONGTY")
+            {
+                vaiTro = "CONGTY";
+                rdCongTy.Enabled = false;
+                rdChiNhanh.Enabled = false;
+                rdUser.Enabled = false;
+                rdCongTy.Checked = true;
+            }
+            else
+            {
+                rdCongTy.Enabled = false;
+                rdChiNhanh.Enabled = true;
+                rdUser.Enabled = true;
+            }
         }
     }
 }

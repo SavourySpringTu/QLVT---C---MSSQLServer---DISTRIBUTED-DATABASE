@@ -67,35 +67,63 @@ namespace QLVT
 
         private void FormBaoCaoNhanVien_Load(object sender, EventArgs e)
         {
-            if (Program.role == "CONGTY")
-            {
-                this.cmbChiNhanh.Enabled = true;
-            }
             QLVT_DATHANGDataSet.EnforceConstraints = false;
 
             this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
             this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
-            QLVT_DATHANGDataSet.EnforceConstraints = false;
 
-            if (KetNoiDatabaseGoc() == 0)
-                return;
+            QLVT_DATHANGDataSet.EnforceConstraints = false;
+            chiNhanh = ((DataRowView)bdsNhanVien[0])["MACN"].ToString();
+            cmbChiNhanh.DataSource = Program.bindingSource;/*sao chep bingding source tu form dang nhap*/
+            cmbChiNhanh.DisplayMember = "TENCN";
+            cmbChiNhanh.ValueMember = "TENSERVER";
+            cmbChiNhanh.SelectedIndex = Program.brand;
+            this.cmbChiNhanh.Enabled = false;
+            if (Program.role == "CONGTY")
+            {
+                this.cmbChiNhanh.Enabled = true;
+            }
+            
             this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
-            layDanhSachPhanManh("SELECT TOP 2 * FROM view_DanhSachPhanManh");
-            cmbChiNhanh.SelectedIndex = 0;
-            cmbChiNhanh.SelectedIndex = 1;
         }
 
         private void btnXem_Click(object sender, EventArgs e)
         {
             ReportNhanVien report = new ReportNhanVien();
-            //report.txtChiNhanh.Text = chiNhanh.ToUpper();
             ReportPrintTool printTool = new ReportPrintTool(report);
             printTool.ShowPreviewDialog();
         }
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ReportNhanVien report = new ReportNhanVien();
+                if (File.Exists(@"D:\ReportDanhSachNhanVien.pdf"))
+                {
+                    DialogResult dr = MessageBox.Show("File ReportDSNhanVien.pdf tại ổ D đã có!\nBạn có muốn tạo lại?",
+                        "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dr == DialogResult.Yes)
+                    {
+                        report.ExportToPdf(@"D:\ReportDSNhanVien.pdf");
+                        MessageBox.Show("File ReportDSNhanVien.pdf đã được ghi thành công tại ổ D",
+                        "Xác nhận", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
+                }
+                else
+                {
+                    report.ExportToPdf(@"D:\ReportDanhSachNhanVien.pdf");
+                    MessageBox.Show("File ReportDSNhanVien.pdf đã được ghi thành công tại ổ D",
+                    "Xác nhận", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Vui lòng đóng file ReportDSNhanVien.pdf",
+                    "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
         }
 
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -131,7 +159,6 @@ namespace QLVT
             {
                 this.nhanVienTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
-
                 chiNhanh = ((DataRowView)bdsNhanVien[0])["MACN"].ToString().Trim();
             }
         }

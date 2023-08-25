@@ -11,6 +11,7 @@ namespace QLVT
         public ReportNhanVien()
         {
             InitializeComponent();
+            this.sqlDataSource1.Connection.ConnectionString = Program.connstr;
         }
 
     }

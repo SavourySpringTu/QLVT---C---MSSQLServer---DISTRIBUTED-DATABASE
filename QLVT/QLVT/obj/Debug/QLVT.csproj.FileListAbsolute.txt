@@ -206,3 +206,9 @@ D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\bin\Debug\es\DevExpress.XtraPivotGrid.v21.2.reso
 D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\bin\Debug\ja\DevExpress.XtraPivotGrid.v21.2.resources.dll
 D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\bin\Debug\ru\DevExpress.XtraPivotGrid.v21.2.resources.dll
 D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.ReportNhanVien.resources
+D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.FormBaoCaoVatTu.resources
+D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.ReportVatTu.resources
+D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.FormDDHkhongPN.resources
+D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.ReportDDHkPN.resources
+D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.FormHoatDongNhanVien.resources
+D:\Doc\CSDLPT\DA\QLVT\QLVT\QLVT\obj\Debug\QLVT.ReportHDNV.resources

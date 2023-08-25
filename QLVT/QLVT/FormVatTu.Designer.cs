@@ -59,6 +59,10 @@ namespace QLVT
             this.tableAdapterManager = new QLVT.QLVT_DATHANGDataSetTableAdapters.TableAdapterManager();
             this.gcVatTu = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colMAVT = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTENVT = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDVT = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSOLUONGTON = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelNhapLieu = new DevExpress.XtraEditors.PanelControl();
             this.txtDonViTinh = new DevExpress.XtraEditors.TextEdit();
             this.txtSoLuongTon = new DevExpress.XtraEditors.SpinEdit();
@@ -87,7 +91,6 @@ namespace QLVT
             ((System.ComponentModel.ISupportInitialize)(this.txtSoLuongTon.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenVT.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaVT.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsCTPX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsCTPN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsCTDDH)).BeginInit();
@@ -265,7 +268,7 @@ namespace QLVT
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
             this.barDockControlTop.Manager = this.barManager2;
-            this.barDockControlTop.Size = new System.Drawing.Size(969, 81);
+            this.barDockControlTop.Size = new System.Drawing.Size(1264, 81);
             // 
             // barDockControlBottom
             // 
@@ -273,7 +276,7 @@ namespace QLVT
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.barDockControlBottom.Location = new System.Drawing.Point(0, 620);
             this.barDockControlBottom.Manager = this.barManager2;
-            this.barDockControlBottom.Size = new System.Drawing.Size(969, 20);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1264, 20);
             // 
             // barDockControlLeft
             // 
@@ -287,7 +290,7 @@ namespace QLVT
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(969, 81);
+            this.barDockControlRight.Location = new System.Drawing.Point(1264, 81);
             this.barDockControlRight.Manager = this.barManager2;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 539);
             // 
@@ -298,7 +301,7 @@ namespace QLVT
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 81);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(969, 100);
+            this.panelControl1.Size = new System.Drawing.Size(1264, 100);
             this.panelControl1.TabIndex = 5;
             // 
             // cmbChiNhanh
@@ -357,15 +360,54 @@ namespace QLVT
             this.gcVatTu.MainView = this.gridView1;
             this.gcVatTu.MenuManager = this.barManager2;
             this.gcVatTu.Name = "gcVatTu";
-            this.gcVatTu.Size = new System.Drawing.Size(969, 220);
+            this.gcVatTu.Size = new System.Drawing.Size(1264, 220);
             this.gcVatTu.TabIndex = 6;
             this.gcVatTu.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
+            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colMAVT,
+            this.colTENVT,
+            this.colDVT,
+            this.colSOLUONGTON});
             this.gridView1.GridControl = this.gcVatTu;
             this.gridView1.Name = "gridView1";
+            // 
+            // colMAVT
+            // 
+            this.colMAVT.FieldName = "MAVT";
+            this.colMAVT.Name = "colMAVT";
+            this.colMAVT.OptionsColumn.AllowEdit = false;
+            this.colMAVT.OptionsColumn.ReadOnly = true;
+            this.colMAVT.Visible = true;
+            this.colMAVT.VisibleIndex = 0;
+            // 
+            // colTENVT
+            // 
+            this.colTENVT.FieldName = "TENVT";
+            this.colTENVT.Name = "colTENVT";
+            this.colTENVT.OptionsColumn.AllowEdit = false;
+            this.colTENVT.Visible = true;
+            this.colTENVT.VisibleIndex = 1;
+            // 
+            // colDVT
+            // 
+            this.colDVT.FieldName = "DVT";
+            this.colDVT.Name = "colDVT";
+            this.colDVT.OptionsColumn.AllowEdit = false;
+            this.colDVT.Visible = true;
+            this.colDVT.VisibleIndex = 2;
+            // 
+            // colSOLUONGTON
+            // 
+            this.colSOLUONGTON.FieldName = "SOLUONGTON";
+            this.colSOLUONGTON.Name = "colSOLUONGTON";
+            this.colSOLUONGTON.OptionsColumn.AllowEdit = false;
+            this.colSOLUONGTON.OptionsColumn.ReadOnly = true;
+            this.colSOLUONGTON.Visible = true;
+            this.colSOLUONGTON.VisibleIndex = 3;
             // 
             // panelNhapLieu
             // 
@@ -380,7 +422,7 @@ namespace QLVT
             this.panelNhapLieu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNhapLieu.Location = new System.Drawing.Point(0, 401);
             this.panelNhapLieu.Name = "panelNhapLieu";
-            this.panelNhapLieu.Size = new System.Drawing.Size(969, 213);
+            this.panelNhapLieu.Size = new System.Drawing.Size(1264, 254);
             this.panelNhapLieu.TabIndex = 7;
             // 
             // txtDonViTinh
@@ -434,9 +476,21 @@ namespace QLVT
             this.txtMaVT.Size = new System.Drawing.Size(141, 24);
             this.txtMaVT.TabIndex = 1;
             // 
+            // ctpxTableAdapter
+            // 
+            this.ctpxTableAdapter.ClearBeforeFill = true;
+            // 
+            // ctpnTableAdapter
+            // 
+            this.ctpnTableAdapter.ClearBeforeFill = true;
+            // 
+            // ctddhTableAdapter
+            // 
+            this.ctddhTableAdapter.ClearBeforeFill = true;
+            // 
             // FormVatTu
             // 
-            this.ClientSize = new System.Drawing.Size(969, 640);
+            this.ClientSize = new System.Drawing.Size(1264, 640);
             this.Controls.Add(this.panelNhapLieu);
             this.Controls.Add(this.gcVatTu);
             this.Controls.Add(this.panelControl1);
@@ -461,6 +515,9 @@ namespace QLVT
             ((System.ComponentModel.ISupportInitialize)(this.txtSoLuongTon.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenVT.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaVT.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCTPX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCTPN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCTDDH)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,5 +561,9 @@ namespace QLVT
         private QLVT_DATHANGDataSetTableAdapters.CTPNTableAdapter ctpnTableAdapter;
         private System.Windows.Forms.BindingSource bdsCTDDH;
         private QLVT_DATHANGDataSetTableAdapters.CTDDHTableAdapter ctddhTableAdapter;
+        private DevExpress.XtraGrid.Columns.GridColumn colMAVT;
+        private DevExpress.XtraGrid.Columns.GridColumn colTENVT;
+        private DevExpress.XtraGrid.Columns.GridColumn colDVT;
+        private DevExpress.XtraGrid.Columns.GridColumn colSOLUONGTON;
     }
 }

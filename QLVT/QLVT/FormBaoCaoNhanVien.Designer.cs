@@ -69,7 +69,7 @@ namespace QLVT
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 81);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(694, 154);
+            this.panelControl1.Size = new System.Drawing.Size(826, 154);
             this.panelControl1.TabIndex = 0;
             // 
             // btnXuat
@@ -155,7 +155,7 @@ namespace QLVT
             this.gcNhanVien.Location = new System.Drawing.Point(0, 235);
             this.gcNhanVien.MainView = this.gridView1;
             this.gcNhanVien.Name = "gcNhanVien";
-            this.gcNhanVien.Size = new System.Drawing.Size(694, 275);
+            this.gcNhanVien.Size = new System.Drawing.Size(826, 275);
             this.gcNhanVien.TabIndex = 2;
             this.gcNhanVien.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -230,7 +230,7 @@ namespace QLVT
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
             this.barDockControlTop.Manager = this.barManager1;
-            this.barDockControlTop.Size = new System.Drawing.Size(694, 81);
+            this.barDockControlTop.Size = new System.Drawing.Size(826, 81);
             // 
             // barDockControlBottom
             // 
@@ -238,7 +238,7 @@ namespace QLVT
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.barDockControlBottom.Location = new System.Drawing.Point(0, 510);
             this.barDockControlBottom.Manager = this.barManager1;
-            this.barDockControlBottom.Size = new System.Drawing.Size(694, 20);
+            this.barDockControlBottom.Size = new System.Drawing.Size(826, 20);
             // 
             // barDockControlLeft
             // 
@@ -252,7 +252,7 @@ namespace QLVT
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(694, 81);
+            this.barDockControlRight.Location = new System.Drawing.Point(826, 81);
             this.barDockControlRight.Manager = this.barManager1;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 429);
             // 
@@ -260,7 +260,7 @@ namespace QLVT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 530);
+            this.ClientSize = new System.Drawing.Size(826, 530);
             this.Controls.Add(this.gcNhanVien);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.barDockControlLeft);

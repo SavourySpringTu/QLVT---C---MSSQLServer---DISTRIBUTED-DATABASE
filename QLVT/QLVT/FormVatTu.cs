@@ -82,7 +82,9 @@ namespace QLVT
 
                 this.panelNhapLieu.Enabled = true;
                 this.txtMaVT.Enabled = false;
+                this.txtSoLuongTon.Enabled = false;
             }
+            this.gcVatTu.EndUpdate();
         }
         private void btnThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -98,7 +100,7 @@ namespace QLVT
             dangThemMoi = true;
 
             bdsVatTu.AddNew();
-            txtSoLuongTon.Value = 1;
+            txtSoLuongTon.Value = 0;
 
             this.txtMaVT.Enabled = true;
             this.btnThem.Enabled = false;
@@ -175,7 +177,6 @@ namespace QLVT
                 txtMaVT.Focus();
                 return false;
             }
-            /*Kiem tra txtTENVT*/
             if (txtTenVT.Text == "")
             {
                 MessageBox.Show("Không bỏ trống tên vật tư", "Thông báo", MessageBoxButtons.OK);
@@ -217,13 +218,6 @@ namespace QLVT
                 txtDonViTinh.Focus();
                 return false;
             }
-            /*Kiem tra txtSOLUONGTON*/
-            if (txtSoLuongTon.Value < 0)
-            {
-                MessageBox.Show("Sô lượng tồn phải ít nhất bằng 0", "Thông báo", MessageBoxButtons.OK);
-                txtSoLuongTon.Focus();
-                return false;
-            }
 
             return true;
         }
@@ -246,13 +240,11 @@ namespace QLVT
                     "EXEC @result = sp_KiemTraMaVT '" +
                     maVatTu + "' " +
                     "SELECT 'Value' = @result";
-            Console.WriteLine("CTV nè: "+ cauTruyVan);
             SqlCommand sqlCommand = new SqlCommand(cauTruyVan, Program.conn);
             try
             {
                 Program.myReader = Program.ExecSqlDataReader(cauTruyVan);
                 Console.WriteLine("Program.myReader ne: "+Program.myReader);
-                /*khong co ket qua tra ve thi ket thuc luon*/
                 if (Program.myReader == null)
                 {
                     return;
@@ -267,12 +259,7 @@ namespace QLVT
             }
             Program.myReader.Read();
             int result = int.Parse(Program.myReader.GetValue(0).ToString());
-            //Console.WriteLine(result);
             Program.myReader.Close();
-
-
-
-            /*Step 2*/
             int viTriConTro = bdsVatTu.Position;
             int viTriMaVatTu = bdsVatTu.Find("MAVT", txtMaVT.Text);
 
@@ -360,7 +347,7 @@ namespace QLVT
         {
             String cauTruyVan =
                     "DECLARE	@result int " +
-                    "EXEC @result = sp_KiemTraMaVatTuChiNhanhConLai '" +
+                    "EXEC @result = sp_KiemTraVatTuChiNhanhConLai '" +
                     maVatTu + "' " +
                     "SELECT 'Value' = @result";
             SqlCommand sqlCommand = new SqlCommand(cauTruyVan, Program.conn);

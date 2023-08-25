@@ -77,6 +77,9 @@ namespace QLVT
 
         private void FormChinh_Load(object sender, EventArgs e)
         {
+            this.ttMaNV.Text = "Mã NV: " + Program.userName;
+            this.ttHoTen.Text = "Họ Tên: " + Program.staff;
+            this.ttNhom.Text = "Nhóm: " + Program.role;
             if(Program.role == "USER"){
                 this.btnTaoTaiKhoan.Enabled = false;
                 this.btnBCNhanVien.Enabled = false;
@@ -130,6 +133,27 @@ namespace QLVT
         private void btnBCNhanVien_ItemClick(object sender, ItemClickEventArgs e)
         {
             FormBaoCaoNhanVien form = new FormBaoCaoNhanVien();
+            form.Show();
+            Dispose();
+        }
+
+        private void btnBCVatTu_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormBaoCaoVatTu form = new FormBaoCaoVatTu();
+            form.Show();
+            Dispose();
+        }
+
+        private void barButtonItem4_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormDDHkhongPN form = new FormDDHkhongPN();
+            form.Show();
+            Dispose();
+        }
+
+        private void btnHDNV_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            FormHoatDongNhanVien form = new FormHoatDongNhanVien();
             form.Show();
             Dispose();
         }

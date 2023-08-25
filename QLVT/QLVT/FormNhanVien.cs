@@ -78,7 +78,6 @@ namespace QLVT
                 this.btnThem.Enabled = true;
                 this.btnXoa.Enabled = true;
                 this.btnGhi.Enabled = true;
-
                 this.btnPhucHoi.Enabled = false;
                 this.btnRefresh.Enabled = true;
                 this.btnChuyenCN.Enabled = true;
@@ -86,7 +85,6 @@ namespace QLVT
 
                 this.panelNhapLieu.Enabled = true;
                 this.txtMaNV.Enabled = false;
-                this.btnChuyenCN.Enabled = false;
                 this.txtMaCN.Enabled = false;
             }
             this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
@@ -157,6 +155,7 @@ namespace QLVT
             this.btnRefresh.Enabled = false;
             this.btnPhucHoi.Enabled = true;
             this.btnChuyenCN.Enabled = false;
+            this.btnChuyenCN.Enabled = false;
             this.btnThoat.Enabled = false;
             this.cbXoa.Checked = false;
 
@@ -179,6 +178,7 @@ namespace QLVT
                 this.btnRefresh.Enabled = true;
                 this.btnChuyenCN.Enabled = true;
                 this.btnThoat.Enabled = true;
+                this.btnChuyenCN.Enabled = true;
                 this.cbXoa.Checked = false;
 
                 this.gcNhanVien.Enabled = true;
@@ -247,17 +247,6 @@ namespace QLVT
 
             }
             this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
-
-
-
-
-            /*
-            bdsNhanVien.CancelEdit();
-            String cauTruyVanHoanTac = undoList.Pop().ToString();
-            Console.WriteLine(cauTruyVanHoanTac);
-            int n = Program.ExecSqlNonQuery(cauTruyVanHoanTac);
-            this.nhanVienTableAdapter.Fill(this.dataSet.NhanVien);
-             */
         }
 
         private void btnGhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -266,12 +255,7 @@ namespace QLVT
             bool ketQua = kiemTraDuLieuDauVao();
             if (ketQua == false)
                 return;
-
-
-
-            /*Step 1*/
-            /*Lay du lieu truoc khi chon btnGHI - phuc vu btnHOANTAC - sau khi OK thi da la du lieu moi*/
-            String maNhanVien = txtMaNV.Text.Trim();// Trim() de loai bo khoang trang thua
+            String maNhanVien = txtMaNV.Text.Trim();
             DataRowView drv = ((DataRowView)bdsNhanVien[bdsNhanVien.Position]);
             String ho = drv["HO"].ToString();
             String ten = drv["TEN"].ToString();
@@ -294,7 +278,6 @@ namespace QLVT
             try
             {
                 Program.myReader = Program.ExecSqlDataReader(cauTruyVan);
-                /*khong co ket qua tra ve thi ket thuc luon*/
                 if (Program.myReader == null)
                 {
                     return;
@@ -311,9 +294,6 @@ namespace QLVT
             int result = int.Parse(Program.myReader.GetValue(0).ToString());
             Program.myReader.Close();
 
-
-
-            /*Step 2*/
             int viTriConTro = bdsNhanVien.Position;
             int viTriMaNhanVien = bdsNhanVien.Find("MANV", txtMaNV.Text);
 
@@ -322,7 +302,7 @@ namespace QLVT
                 MessageBox.Show("Mã nhân viên này đã được sử dụng !", "Thông báo", MessageBoxButtons.OK);
                 return;
             }
-            else/*them moi | sua nhan vien*/
+            else
             {
                 DialogResult dr = MessageBox.Show("Bạn có chắc muốn ghi dữ liệu vào cơ sở dữ liệu ?", "Thông báo",
                         MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -496,7 +476,6 @@ namespace QLVT
         private void btnThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             FormChinh form = new FormChinh();
-            //form.MdiParent = this;
             this.Dispose();
             form.Show();
         }
@@ -505,7 +484,6 @@ namespace QLVT
         {
             try
             {
-                // do du lieu moi tu dataSet vao gridControl NHANVIEN
                 this.nhanVienTableAdapter.Fill(this.QLVT_DATHANGDataSet.NhanVien);
                 this.btnThem.Enabled = true;
                 this.gcNhanVien.Enabled = true;
@@ -520,9 +498,6 @@ namespace QLVT
         private void btnXoa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             String tenNV = ((DataRowView)bdsNhanVien[bdsNhanVien.Position])["MANV"].ToString();
-            /*Step 1*/
-
-            // khong cho xoa nguoi dang dang nhap ke ca nguoi do khong co don hang - phieu nhap - phieu xuat
             if (tenNV == Program.userName)
             {
                 MessageBox.Show("Không thể xóa chính tài khoản đang đăng nhập", "Thông báo", MessageBoxButtons.OK);
@@ -551,15 +526,8 @@ namespace QLVT
                 MessageBox.Show("Không thể xóa nhân viên này vì đã lập phiếu xuất", "Thông báo", MessageBoxButtons.OK);
                 return;
             }
-
-            /* Phần này phục vụ tính năng hoàn tác
-                    * Đưa câu truy vấn hoàn tác vào undoList 
-                    * để nếu chẳng may người dùng ấn hoàn tác thì quất luôn*/
             int trangThai = (cbXoa.Checked == true) ? 1 : 0;
-            /*Lấy ngày sinh trong grid view*/
             DateTime NGAYSINH = (DateTime)((DataRowView)bdsNhanVien[bdsNhanVien.Position])["NGAYSINH"];
-
-
             string cauTruyVanHoanTac =
                 string.Format("INSERT INTO DBO.NHANVIEN( MANV,HO,TEN,DIACHI,NGAYSINH,LUONG,MACN)" +
             "VALUES({0},'{1}','{2}','{3}',CAST({4} AS DATETIME), {5},'{6}')", txtMaNV.Text, txtHo.Text, txtTen.Text, txtDiaChi.Text, NGAYSINH.ToString("yyyy-MM-dd"), txtLuong.Value, txtMaCN.Text.Trim());
@@ -599,6 +567,82 @@ namespace QLVT
             {
                 undoList.Pop();
             }
+        }
+        public void chuyenChiNhanh(String chiNhanh,String chiNhanhMoi)
+        {
+            int viTriHienTai = bdsNhanVien.Position;
+
+            String maNhanVien = ((DataRowView)bdsNhanVien[viTriHienTai])["MANV"].ToString();
+            String cauTruyVanHoanTac = "EXEC sp_ChuyenChiNhanh " + maNhanVien + ",'" + chiNhanh + "'";
+            undoList.Push(cauTruyVanHoanTac);
+
+            Program.serverNameLeft = chiNhanh; 
+
+            String cauTruyVan = "EXEC sp_ChuyenChiNhanh " + maNhanVien + ",'" + chiNhanhMoi + "'";
+            Console.WriteLine("Cau Truy Van: " + cauTruyVan);
+            Console.WriteLine("Cau Truy Van Hoan Tac: " + cauTruyVanHoanTac);
+
+            SqlCommand sqlcommand = new SqlCommand(cauTruyVan, Program.conn);
+            try
+            {
+                Program.myReader = Program.ExecSqlDataReader(cauTruyVan);
+                MessageBox.Show("Chuyển chi nhánh thành công", "thông báo", MessageBoxButtons.OK);
+
+                if (Program.myReader == null)
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("thực thi database thất bại!\n\n" + ex.Message, "thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            this.nhanVienTableAdapter.Update(this.QLVT_DATHANGDataSet.NhanVien);
+        }
+        private void btnChuyenCN_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            int viTriHienTai = bdsNhanVien.Position;
+            int trangThaiXoa = int.Parse(((DataRowView)(bdsNhanVien[viTriHienTai]))["TrangThaiXoa"].ToString());
+            string maNhanVien = ((DataRowView)(bdsNhanVien[viTriHienTai]))["MANV"].ToString();
+
+            if (maNhanVien == Program.userName)
+            {
+                MessageBox.Show("Không thể chuyển chính người đang đăng nhập!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            /*Step 1 - Kiem tra trang thai xoa*/
+            if (trangThaiXoa == 1)
+            {
+                MessageBox.Show("Nhân viên này không có ở chi nhánh này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            /*Step 2*/
+            DialogResult dialogResult = MessageBox.Show("Bạn có chắc chắn muốn chuyển nhân viên này đi ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.OK)
+            {
+                String cnhientai = "";
+                String cnMoi = "";
+                if(cmbChiNhanh.Text == "CN01")
+                {
+                    cnhientai = "CN01";
+                    cnMoi = "CN02";
+                }
+                else
+                {
+                    cnhientai =  "CN02";
+                    cnMoi = "CN01";
+                }
+                chuyenChiNhanh(cnhientai, cnMoi);
+            }
+
+            /*Step 4*/
+            this.btnPhucHoi.Enabled = true;
         }
     }
 }

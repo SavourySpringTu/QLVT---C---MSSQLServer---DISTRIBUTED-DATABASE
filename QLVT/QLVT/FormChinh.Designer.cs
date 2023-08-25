@@ -42,6 +42,9 @@ namespace QLVT
             this.btnPhieuXuat = new DevExpress.XtraBars.BarButtonItem();
             this.btnTaoTaiKhoan = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.btnBCNhanVien = new DevExpress.XtraBars.BarButtonItem();
+            this.btnBCVatTu = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rbBaoCao = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -50,11 +53,15 @@ namespace QLVT
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.galleryDropDown1 = new DevExpress.XtraBars.Ribbon.GalleryDropDown(this.components);
-            this.btnBCNhanVien = new DevExpress.XtraBars.BarButtonItem();
-            this.btnBCVatTu = new DevExpress.XtraBars.BarButtonItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.ttMaNV = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ttHoTen = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ttNhom = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnHDNV = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -73,15 +80,17 @@ namespace QLVT
             this.btnTaoTaiKhoan,
             this.barButtonItem1,
             this.btnBCNhanVien,
-            this.btnBCVatTu});
+            this.btnBCVatTu,
+            this.barButtonItem4,
+            this.btnHDNV});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 13;
+            this.ribbon.MaxItemId = 16;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
             this.rbBaoCao,
             this.ribbonPage3});
-            this.ribbon.Size = new System.Drawing.Size(543, 158);
+            this.ribbon.Size = new System.Drawing.Size(821, 158);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // ribbonGalleryBarItem1
@@ -161,6 +170,33 @@ namespace QLVT
             this.barButtonItem1.Name = "barButtonItem1";
             this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
             // 
+            // btnBCNhanVien
+            // 
+            this.btnBCNhanVien.Caption = "Danh Sách Nhân Viên";
+            this.btnBCNhanVien.Id = 11;
+            this.btnBCNhanVien.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnBCNhanVien.ImageOptions.Image")));
+            this.btnBCNhanVien.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnBCNhanVien.ImageOptions.LargeImage")));
+            this.btnBCNhanVien.Name = "btnBCNhanVien";
+            this.btnBCNhanVien.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBCNhanVien_ItemClick);
+            // 
+            // btnBCVatTu
+            // 
+            this.btnBCVatTu.Caption = "Danh Sách Vật Tư";
+            this.btnBCVatTu.Id = 12;
+            this.btnBCVatTu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnBCVatTu.ImageOptions.Image")));
+            this.btnBCVatTu.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnBCVatTu.ImageOptions.LargeImage")));
+            this.btnBCVatTu.Name = "btnBCVatTu";
+            this.btnBCVatTu.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBCVatTu_ItemClick);
+            // 
+            // barButtonItem4
+            // 
+            this.barButtonItem4.Caption = "Danh Sách DDH Chưa Có Phiếu Nhập";
+            this.barButtonItem4.Id = 13;
+            this.barButtonItem4.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.ImageOptions.Image")));
+            this.barButtonItem4.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.ImageOptions.LargeImage")));
+            this.barButtonItem4.Name = "barButtonItem4";
+            this.barButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem4_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -191,6 +227,8 @@ namespace QLVT
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.btnBCNhanVien);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnBCVatTu);
+            this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem4);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnHDNV);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             // 
             // ribbonPage3
@@ -207,38 +245,61 @@ namespace QLVT
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 279);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 459);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(543, 24);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(821, 24);
             // 
             // galleryDropDown1
             // 
             this.galleryDropDown1.Name = "galleryDropDown1";
             this.galleryDropDown1.Ribbon = this.ribbon;
             // 
-            // btnBCNhanVien
+            // statusStrip1
             // 
-            this.btnBCNhanVien.Caption = "Danh Sách Nhân Viên";
-            this.btnBCNhanVien.Id = 11;
-            this.btnBCNhanVien.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.ImageOptions.Image")));
-            this.btnBCNhanVien.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem4.ImageOptions.LargeImage")));
-            this.btnBCNhanVien.Name = "btnBCNhanVien";
-            this.btnBCNhanVien.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBCNhanVien_ItemClick);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ttMaNV,
+            this.ttHoTen,
+            this.ttNhom});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 437);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(821, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // btnBCVatTu
+            // ttMaNV
             // 
-            this.btnBCVatTu.Caption = "Danh Sách Vật Tư";
-            this.btnBCVatTu.Id = 12;
-            this.btnBCVatTu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.Image")));
-            this.btnBCVatTu.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.LargeImage")));
-            this.btnBCVatTu.Name = "btnBCVatTu";
+            this.ttMaNV.Name = "ttMaNV";
+            this.ttMaNV.Size = new System.Drawing.Size(118, 17);
+            this.ttMaNV.Text = "toolStripStatusLabel1";
+            // 
+            // ttHoTen
+            // 
+            this.ttHoTen.Name = "ttHoTen";
+            this.ttHoTen.Size = new System.Drawing.Size(118, 17);
+            this.ttHoTen.Text = "toolStripStatusLabel2";
+            // 
+            // ttNhom
+            // 
+            this.ttNhom.Name = "ttNhom";
+            this.ttNhom.Size = new System.Drawing.Size(118, 17);
+            this.ttNhom.Text = "toolStripStatusLabel1";
+            // 
+            // btnHDNV
+            // 
+            this.btnHDNV.Caption = "Hoạt Động Nhân Viên";
+            this.btnHDNV.Id = 15;
+            this.btnHDNV.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.Image")));
+            this.btnHDNV.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem5.ImageOptions.LargeImage")));
+            this.btnHDNV.Name = "btnHDNV";
+            this.btnHDNV.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnHDNV_ItemClick);
             // 
             // FormChinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 303);
+            this.ClientSize = new System.Drawing.Size(821, 483);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
             this.Name = "FormChinh";
@@ -249,6 +310,8 @@ namespace QLVT
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryDropDown1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,5 +340,11 @@ namespace QLVT
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem btnBCNhanVien;
         private DevExpress.XtraBars.BarButtonItem btnBCVatTu;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem4;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel ttMaNV;
+        private System.Windows.Forms.ToolStripStatusLabel ttHoTen;
+        private System.Windows.Forms.ToolStripStatusLabel ttNhom;
+        private DevExpress.XtraBars.BarButtonItem btnHDNV;
     }
 }

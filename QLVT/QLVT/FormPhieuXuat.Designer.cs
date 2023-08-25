@@ -462,6 +462,8 @@ namespace QLVT
             // 
             this.colMAPX.FieldName = "MAPX";
             this.colMAPX.Name = "colMAPX";
+            this.colMAPX.OptionsColumn.AllowEdit = false;
+            this.colMAPX.OptionsColumn.ReadOnly = true;
             this.colMAPX.Visible = true;
             this.colMAPX.VisibleIndex = 0;
             // 
@@ -469,6 +471,8 @@ namespace QLVT
             // 
             this.colNGAY.FieldName = "NGAY";
             this.colNGAY.Name = "colNGAY";
+            this.colNGAY.OptionsColumn.AllowEdit = false;
+            this.colNGAY.OptionsColumn.ReadOnly = true;
             this.colNGAY.Visible = true;
             this.colNGAY.VisibleIndex = 1;
             // 
@@ -476,6 +480,8 @@ namespace QLVT
             // 
             this.colHOTENKH.FieldName = "HOTENKH";
             this.colHOTENKH.Name = "colHOTENKH";
+            this.colHOTENKH.OptionsColumn.AllowEdit = false;
+            this.colHOTENKH.OptionsColumn.ReadOnly = true;
             this.colHOTENKH.Visible = true;
             this.colHOTENKH.VisibleIndex = 2;
             // 
@@ -483,6 +489,8 @@ namespace QLVT
             // 
             this.colMANV.FieldName = "MANV";
             this.colMANV.Name = "colMANV";
+            this.colMANV.OptionsColumn.AllowEdit = false;
+            this.colMANV.OptionsColumn.ReadOnly = true;
             this.colMANV.Visible = true;
             this.colMANV.VisibleIndex = 3;
             // 
@@ -490,6 +498,8 @@ namespace QLVT
             // 
             this.colMAKHO.FieldName = "MAKHO";
             this.colMAKHO.Name = "colMAKHO";
+            this.colMAKHO.OptionsColumn.AllowEdit = false;
+            this.colMAKHO.OptionsColumn.ReadOnly = true;
             this.colMAKHO.Visible = true;
             this.colMAKHO.VisibleIndex = 4;
             // 
@@ -661,11 +671,11 @@ namespace QLVT
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
             this.gcChiTietPhieuXuat.DataSource = this.bdsChiTietPhieuXuat;
-            this.gcChiTietPhieuXuat.Dock = System.Windows.Forms.DockStyle.Right;
-            this.gcChiTietPhieuXuat.Location = new System.Drawing.Point(892, 368);
+            this.gcChiTietPhieuXuat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcChiTietPhieuXuat.Location = new System.Drawing.Point(874, 368);
             this.gcChiTietPhieuXuat.Name = "gcChiTietPhieuXuat";
             this.gcChiTietPhieuXuat.ReadOnly = true;
-            this.gcChiTietPhieuXuat.Size = new System.Drawing.Size(446, 448);
+            this.gcChiTietPhieuXuat.Size = new System.Drawing.Size(464, 448);
             this.gcChiTietPhieuXuat.TabIndex = 11;
             // 
             // dataGridViewTextBoxColumn1

@@ -41,27 +41,35 @@ namespace QLVT
         private void FormDonDatHang_Load(object sender, EventArgs e)
         {
             dS.EnforceConstraints = false;
-            // TODO: This line of code loads data into the 'dS.DatHang' table. You can move, or remove it, as needed.
+            if (Program.role == "CONGTY")
+            {
+                this.gcDH.Enabled = false;
+                this.gcCTDDH.Enabled = false;
+                this.panelNhapLieu.Enabled = false;
+                this.btnThem.Enabled = false;
+                this.btnGhi.Enabled = false;
+                this.btnRefresh.Enabled = false;
+                this.btnPhucHoi.Enabled = false;
+                this.btnXoa.Enabled = false;
+            }
+            else
+            {
+                this.cmbCHINHANH.Enabled = false;
+            }
+            this.txtMaNV.Enabled = false;
+            this.mAKHOTextEdit.Enabled = false;
             this.datHangTableAdapter.Connection.ConnectionString = Program.connstr;
             try
             {
                 this.datHangTableAdapter.Fill(this.dS.DatHang);
             }
             catch (Exception) { }
-            // TODO: This line of code loads data into the 'dS.CTDDH' table. You can move, or remove it, as needed.
             this.cTDDHTableAdapter.Connection.ConnectionString = Program.connstr;
             this.cTDDHTableAdapter.Fill(this.dS.CTDDH);
 
-            // TODO: This line of code loads data into the 'dS.Vattu' table. You can move, or remove it, as needed.
             this.vattuTableAdapter.Connection.ConnectionString = Program.connstr;
             this.vattuTableAdapter.Fill(this.dS.Vattu);
-
-
-
-
-
-
-            cmbCHINHANH.DataSource = Program.bindingSource;/*sao chep bingding source tu form dang nhap*/
+            cmbCHINHANH.DataSource = Program.bindingSource;
             cmbCHINHANH.DisplayMember = "TENCN";
             cmbCHINHANH.ValueMember = "TENSERVER";
             cmbCHINHANH.SelectedIndex = Program.brand;
@@ -81,6 +89,10 @@ namespace QLVT
             ((DataRowView)(bdsDH.Current))["MANV"] = Program.userName;
             ((DataRowView)(bdsDH.Current))["NGAY"] = DateTime.Now;
             Console.WriteLine(viTri);
+            this.btnThem.Enabled = false;
+            this.btnThoat.Enabled = false;
+            this.btnRefresh.Enabled = false;
+            this.btnXoa.Enabled = false;
         }
 
         private void btnGhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -117,20 +129,12 @@ namespace QLVT
 
             int viTriHienTai = bds.Position;
             int viTriMaDonDatHang = bdsDH.Find("MasoDDH", txtMaDDH.Text);
-            /******************************************************************
-             * truong hop them moi don dat hang moi quan tam xem no ton tai hay
-             * chua ?
-             ******************************************************************/
             if (result == 1 && viTriHienTai != viTriMaDonDatHang)
             {
                 MessageBox.Show("Mã đơn hàng này đã được sử dụng !\n\n", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            /*****************************************************************
-             * tat ca cac truong hop khac ko can quan tam !!
-             *****************************************************************/
-
             else
             {
                 DialogResult dr = MessageBox.Show("Bạn có chắc muốn ghi dữ liệu vào cơ sở dữ liệu ?", "Thông báo",
@@ -154,6 +158,10 @@ namespace QLVT
                     }
                 }
             }
+            this.btnThem.Enabled = true;
+            this.btnThoat.Enabled = true;
+            this.btnRefresh.Enabled = true;
+            this.btnXoa.Enabled = true;
         }
 
         private void btnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -202,6 +210,25 @@ namespace QLVT
         private void menuThem_Click(object sender, EventArgs e)
         {
             bdsCTDDH.AddNew();
+        }
+
+        private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            FormChinh form = new FormChinh();
+            form.Show();
+            this.Dispose();
+        }
+
+        private void btnChonKho_Click(object sender, EventArgs e)
+        {
+            FormChonKhoHang form = new FormChonKhoHang();
+            form.ShowDialog();
+            this.mAKHOTextEdit.Text = Program.maKhoDuocChon;
+        }
+
+        private void barButtonItem5_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
         }
     }
 }

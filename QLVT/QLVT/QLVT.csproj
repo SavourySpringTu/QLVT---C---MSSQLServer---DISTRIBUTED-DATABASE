@@ -81,6 +81,12 @@
     <Compile Include="FormBaoCaoNhanVien.Designer.cs">
       <DependentUpon>FormBaoCaoNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormBaoCaoVatTu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaoCaoVatTu.Designer.cs">
+      <DependentUpon>FormBaoCaoVatTu.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormChonKhoHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,17 +99,23 @@
     <Compile Include="FormChonVatTu.Designer.cs">
       <DependentUpon>FormChonVatTu.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDatHang.cs">
+    <Compile Include="FormDDHkhongPN.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDatHang.Designer.cs">
-      <DependentUpon>FormDatHang.cs</DependentUpon>
+    <Compile Include="FormDDHkhongPN.Designer.cs">
+      <DependentUpon>FormDDHkhongPN.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDonDatHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDonDatHang.Designer.cs">
       <DependentUpon>FormDonDatHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormHoatDongNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHoatDongNhanVien.Designer.cs">
+      <DependentUpon>FormHoatDongNhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="FormKhoHang.cs">
       <SubType>Form</SubType>
@@ -160,14 +172,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLVT_DATHANGDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ReportDDHkPN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportDDHkPN.Designer.cs">
+      <DependentUpon>ReportDDHkPN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportHDNV.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportHDNV.Designer.cs">
+      <DependentUpon>ReportHDNV.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportNhanVien.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReportNhanVien.Designer.cs">
       <DependentUpon>ReportNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportVatTu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportVatTu.Designer.cs">
+      <DependentUpon>ReportVatTu.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormBaoCaoNhanVien.resx">
       <DependentUpon>FormBaoCaoNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaoCaoVatTu.resx">
+      <DependentUpon>FormBaoCaoVatTu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormChinh.resx">
       <DependentUpon>FormChinh.cs</DependentUpon>
@@ -178,8 +211,14 @@
     <EmbeddedResource Include="FormChonVatTu.resx">
       <DependentUpon>FormChonVatTu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormDDHkhongPN.resx">
+      <DependentUpon>FormDDHkhongPN.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDonDatHang.resx">
       <DependentUpon>FormDonDatHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHoatDongNhanVien.resx">
+      <DependentUpon>FormHoatDongNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormKhoHang.resx">
       <DependentUpon>FormKhoHang.cs</DependentUpon>
@@ -213,8 +252,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReportDDHkPN.resx">
+      <DependentUpon>ReportDDHkPN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportHDNV.resx">
+      <DependentUpon>ReportHDNV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportNhanVien.resx">
       <DependentUpon>ReportNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportVatTu.resx">
+      <DependentUpon>ReportVatTu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
